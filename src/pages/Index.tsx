@@ -39,7 +39,10 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">Real-time log classification dashboard</p>
             </div>
           </div>
-        </div>
+          <nav className="flex gap-1">
+            <NavLink to="/" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground" end>Dashboard</NavLink>
+            <NavLink to="/discovery" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground">Discovery</NavLink>
+          </nav>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
