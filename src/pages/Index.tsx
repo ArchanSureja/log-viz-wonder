@@ -3,6 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import LogChart from "@/components/LogChart";
 import LogTable from "@/components/LogTable";
 import { LOG_SOURCES, LogSource, getChartData, mockLogs } from "@/data/mockLogs";
+import { NavLink } from "@/components/NavLink";
 import { Activity, Shield, AlertTriangle } from "lucide-react";
 
 type FilterType = "all" | "normal" | "abnormal";
