@@ -13,7 +13,7 @@ import {
   SOURCE_INFO,
   runDiscovery,
 } from "@/data/mockDiscovery";
-import NavLink from "@/components/NavLink";
+import { NavLink } from "@/components/NavLink";
 import {
   Search,
   Play,
