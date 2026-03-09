@@ -3,6 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import LogChart from "@/components/LogChart";
 import LogTable from "@/components/LogTable";
 import { LOG_SOURCES, LogSource, getChartData, mockLogs } from "@/data/mockLogs";
+import { NavLink } from "@/components/NavLink";
 import { Activity, Shield, AlertTriangle } from "lucide-react";
 
 type FilterType = "all" | "normal" | "abnormal";
@@ -38,6 +39,10 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">Real-time log classification dashboard</p>
             </div>
           </div>
+          <nav className="flex gap-1">
+            <NavLink to="/" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground" end>Dashboard</NavLink>
+            <NavLink to="/discovery" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground">Discovery</NavLink>
+          </nav>
         </div>
       </header>
 
