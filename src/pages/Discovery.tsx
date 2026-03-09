@@ -106,9 +106,9 @@ const Discovery = () => {
               <p className="text-xs text-muted-foreground">Discover new classification patterns from unknown logs</p>
             </div>
           </div>
-          <nav className="flex gap-2">
-            <NavLink to="/" label="Dashboard" />
-            <NavLink to="/discovery" label="Discovery" active />
+          <nav className="flex gap-1">
+            <NavLink to="/" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground">Dashboard</NavLink>
+            <NavLink to="/discovery" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground">Discovery</NavLink>
           </nav>
         </div>
       </header>
