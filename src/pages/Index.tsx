@@ -43,6 +43,7 @@ const Index = () => {
             <NavLink to="/" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground" end>Dashboard</NavLink>
             <NavLink to="/discovery" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground">Discovery</NavLink>
           </nav>
+        </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-6">
