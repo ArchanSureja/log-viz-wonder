@@ -105,6 +105,9 @@ const Configuration = () => {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <Badge variant="outline" className="text-xs font-mono shrink-0">{rule.category}</Badge>
+                      <Badge variant={rule.isAbnormal ? "destructive" : "secondary"} className="text-[10px]">
+                        {rule.isAbnormal ? "Abnormal" : "Normal"}
+                      </Badge>
                       <span className="text-xs text-muted-foreground">{rule.matchCount.toLocaleString()} matches</span>
                     </div>
                     <code className="text-xs text-muted-foreground font-mono block truncate">{rule.pattern}</code>
