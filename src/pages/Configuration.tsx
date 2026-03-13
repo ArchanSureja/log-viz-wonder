@@ -131,25 +131,18 @@ const Configuration = () => {
             </div>
 
             <div className="bg-card border border-border rounded-lg overflow-hidden">
-              <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-4 px-4 py-2 bg-muted/50 text-xs font-medium text-muted-foreground border-b border-border">
+              <div className="grid grid-cols-[auto_1fr_auto_auto] gap-x-4 px-4 py-2 bg-muted/50 text-xs font-medium text-muted-foreground border-b border-border">
                 <span>Active</span>
                 <span>Module Name</span>
-                <span>Log Level</span>
                 <span>Category</span>
                 <span className="text-right">Matches</span>
               </div>
               <div className="divide-y divide-border">
                 {openStackRules.map(rule => (
-                  <div key={rule.id} className={`grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-4 items-center px-4 py-3 transition-opacity ${!rule.enabled ? "opacity-50" : ""}`}>
+                  <div key={rule.id} className={`grid grid-cols-[auto_1fr_auto_auto] gap-x-4 items-center px-4 py-3 transition-opacity ${!rule.enabled ? "opacity-50" : ""}`}>
                     <Switch checked={rule.enabled} onCheckedChange={() => toggleOpenStackRule(rule.id)} />
                     <code className="text-sm font-mono truncate">{rule.moduleName}</code>
-                    <Badge
-                      variant={rule.logLevel === "ERROR" ? "destructive" : rule.logLevel === "WARNING" ? "secondary" : "outline"}
-                      className="text-xs"
-                    >
-                      {rule.logLevel}
-                    </Badge>
-                    <span className="text-sm text-foreground">{rule.category}</span>
+                    <Badge variant="outline" className="text-xs">{rule.category}</Badge>
                     <span className="text-xs text-muted-foreground text-right">{rule.matchCount.toLocaleString()}</span>
                   </div>
                 ))}
