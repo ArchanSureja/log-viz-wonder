@@ -109,6 +109,7 @@ const Discovery = () => {
           <nav className="flex gap-1">
             <NavLink to="/" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground">Dashboard</NavLink>
             <NavLink to="/discovery" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground">Discovery</NavLink>
+            <NavLink to="/configuration" className="text-sm px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" activeClassName="bg-muted text-foreground">Configuration</NavLink>
           </nav>
         </div>
       </header>
