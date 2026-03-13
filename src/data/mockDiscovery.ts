@@ -27,29 +27,29 @@ export const SOURCE_INFO: Record<DiscoverySource, { label: string; method: strin
   },
   openstack: {
     label: "OpenStack",
-    method: "Rule-Based + Embedding Similarity",
-    description: "Uses embeddings to find similar module names among unknown logs, then applies existing rules to classify them.",
+    method: "Embedding Similarity",
+    description: "Uses embeddings to find similar module names among unknown logs, then maps them to existing category rules.",
   },
   linux: {
     label: "Linux",
-    method: "Clustering + Logistic Regression",
+    method: "Clustering + Model Retraining",
     description: "Clusters unknown logs to find new training data, then retrains the TF-IDF logistic regression model.",
   },
 };
 
 function generateApacheDiscoveries(): DiscoveryItem[] {
   const templates = [
-    { pattern: `\\[error\\] \\[client .+\\] File does not exist: .+`, example: "[error] [client 192.168.1.1] File does not exist: /var/www/html/favicon.ico" },
-    { pattern: `\\[notice\\] Apache/.+ configured -- resuming normal operations`, example: "[notice] Apache/2.4.41 configured -- resuming normal operations" },
-    { pattern: `\\[warn\\] mod_ssl: .+ SSL library error`, example: "[warn] mod_ssl: OpenSSL SSL library error" },
-    { pattern: `\\[error\\] \\[proxy\\] .+ connection refused`, example: "[error] [proxy] backend:8080 connection refused" },
-    { pattern: `\\[info\\] \\[negotiation\\] no acceptable variant: .+`, example: "[info] [negotiation] no acceptable variant: /var/www/html/index" },
+    { pattern: "proxy: error reading status line from remote server", category: "ERROR" },
+    { pattern: "client denied by server configuration", category: "SECURITY" },
+    { pattern: "server reached MaxRequestWorkers setting", category: "RESOURCE" },
+    { pattern: "AH00094: Command line: '/usr/sbin/apache2'", category: "CONFIG" },
+    { pattern: "mod_reqtimeout: request header timeout", category: "WARNING" },
   ];
 
   return templates.map((t, i) => ({
     id: `apache-${i}`,
     type: "Regex Pattern",
-    detail: t.pattern,
+    detail: `${t.pattern} → ${t.category}`,
     confidence: 0.75 + Math.random() * 0.2,
     matchedLogs: Math.floor(20 + Math.random() * 180),
     status: "pending" as const,
@@ -58,18 +58,18 @@ function generateApacheDiscoveries(): DiscoveryItem[] {
 
 function generateOpenStackDiscoveries(): DiscoveryItem[] {
   const modules = [
-    { name: "nova.compute.resource_tracker", rule: "Resource tracking anomaly detection" },
-    { name: "neutron.agent.dhcp", rule: "DHCP lease failure classification" },
-    { name: "cinder.volume.drivers.lvm", rule: "LVM volume error pattern" },
-    { name: "keystone.token.persistence", rule: "Token persistence warning" },
-    { name: "glance.store.filesystem", rule: "Image store access pattern" },
-    { name: "heat.engine.stack", rule: "Stack operation timeout detection" },
+    { name: "nova.virt.libvirt.config", suggestedCategory: "Resource" },
+    { name: "oslo_messaging._drivers.amqp", suggestedCategory: "Connectivity/Network" },
+    { name: "cinder.volume.drivers.lvm", suggestedCategory: "Storage/IO" },
+    { name: "keystone.token.persistence", suggestedCategory: "Access & Auth" },
+    { name: "nova.api.openstack.compute", suggestedCategory: "Service Lifecycle" },
+    { name: "heat.engine.stack", suggestedCategory: "Service Lifecycle" },
   ];
 
   return modules.map((m, i) => ({
     id: `openstack-${i}`,
-    type: "Rule Mapping",
-    detail: `${m.name} → ${m.rule}`,
+    type: "Module → Category Mapping",
+    detail: `${m.name} → ${m.suggestedCategory}`,
     confidence: 0.7 + Math.random() * 0.25,
     matchedLogs: Math.floor(10 + Math.random() * 120),
     status: "pending" as const,
@@ -78,11 +78,11 @@ function generateOpenStackDiscoveries(): DiscoveryItem[] {
 
 function generateLinuxDiscoveries(): DiscoveryItem[] {
   const clusters = [
-    { label: "Kernel OOM events", size: 45 },
-    { label: "systemd service restart loops", size: 78 },
-    { label: "PAM authentication failures", size: 34 },
-    { label: "disk I/O timeout patterns", size: 56 },
-    { label: "network interface flapping", size: 23 },
+    { label: "Kernel OOM events → RESOURCE_HEALTH", size: 45 },
+    { label: "systemd service restart loops → SYSTEM_BOOT", size: 78 },
+    { label: "PAM authentication failures → SECURITY_CONTROL", size: 34 },
+    { label: "disk I/O timeout patterns → STORAGE_IO", size: 56 },
+    { label: "network interface flapping → NETWORK_SERVICE", size: 23 },
   ];
 
   return clusters.map((c, i) => ({
